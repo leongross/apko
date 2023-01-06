@@ -21,6 +21,12 @@ jobs:
             wget
             go
 
+      - name: Install alpine build utils
+        id: install-deps
+        run: |
+          go version
+        shell: alpine.sh {0}
+
       # - name: Install alpine build utils
       #   id: install-deps
       #   run: |
