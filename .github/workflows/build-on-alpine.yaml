@@ -56,7 +56,7 @@ jobs:
         id: build-apko
         run: |
           make apko install
-        shell: alpine.sh {0}
+        shell: alpine.sh --root {0}
 
       - name: Build apko example
         id: build-example
