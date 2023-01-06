@@ -14,6 +14,7 @@ jobs:
         with:
           branch: v3.15
           packages: >
+            alpine-sdk
             make
             git
             bash
@@ -45,17 +46,21 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
+      - name: Get go dependencies
+        id: get-go-deps
+        run: |
+          go mod download && go mod verify
+        shell: alpine.sh {0}
+
       - name: Build apko
         id: build-apko
         run: |
-          export PATH=$PATH:/usr/local/go/bin
           make apko install
         shell: alpine.sh {0}
 
       - name: Build apko example
         id: build-example
         run: |
-          export PATH=$PATH:/usr/local/go/bin
           apko build examples/alpine-base.yaml alpine:local alpine.tar
         shell: alpine.sh {0}
 
