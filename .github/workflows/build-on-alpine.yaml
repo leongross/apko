@@ -13,25 +13,31 @@ jobs:
       - uses: jirutka/setup-alpine@v1
         with:
           branch: v3.15
+          packages: >
+            make
+            git
+            bash
+            wget
+            go
 
-      - name: Install alpine build utils
-        id: install-deps
-        run: |
-          apk add --update alpine-sdk make git bash wget
-        shell: alpine.sh --root {0}
+      # - name: Install alpine build utils
+      #   id: install-deps
+      #   run: |
+      #     apk add --update alpine-sdk make git bash wget go
+      #   shell: alpine.sh --root {0}
 
-      - name: Setup go
-        id: setup-go
-        run: |
-          wget https://go.dev/dl/go1.19.4.linux-amd64.tar.gz
-          tar -C /usr/local -xzf go1.19.4.linux-amd64.tar.gz && echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bashrc
-          # check if go is installed correctly
-          go version
-          if [ $? -ne 0 ]; then
-            echo "go is not installed correctly"
-          fi
-          export PATH=$PATH:/usr/local/go/bin
-        shell: alpine.sh --root {0}
+      # - name: Setup go
+      #   id: setup-go
+      #   run: |
+      #     wget https://go.dev/dl/go1.19.4.linux-amd64.tar.gz
+      #     tar -C /usr/local -xzf go1.19.4.linux-amd64.tar.gz && echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bashrc
+      #     # check if go is installed correctly
+      #     go version
+      #     if [ $? -ne 0 ]; then
+      #       echo "go is not installed correctly"
+      #     fi
+      #     export PATH=$PATH:/usr/local/go/bin
+      #   shell: alpine.sh --root {0}
 
       - name: Check out repository
         id: checkout
