@@ -55,6 +55,7 @@ jobs:
       - name: Build apko
         id: build-apko
         run: |
+          git config --global --add safe.directory /home/runner/work/apko/apko
           make apko install
         shell: alpine.sh --root {0}
 
