@@ -24,7 +24,7 @@ jobs:
         id: get-go
         run: |
            apk update
-           apk add go=1.19.4-r0
+           apk add go=1.19.4-r0 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
         shell: alpine.sh --root {0}
 
       # - name: Setup go
