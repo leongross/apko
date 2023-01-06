@@ -17,7 +17,15 @@ jobs:
       - name: Install alpine build utils
         id: install-deps
         run: |
-          apk add --update alpine-sdk make git bash go
+          apk add --update alpine-sdk make git bash wget
+        shell: alpine.sh --root {0}
+
+      - name: Setup go
+        id: setup-go
+        run: |
+          wget https://go.dev/dl/go1.19.4.linux-amd64.tar.gz
+          tar -C /usr/local -xzf go1.19.4.linux-amd64.tar.gz
+          export PATH=$PATH:/usr/local/go/bin
         shell: alpine.sh --root {0}
 
       - name: Check out repository
@@ -29,12 +37,14 @@ jobs:
       - name: Build apko
         id: build-apko
         run: |
+          export PATH=$PATH:/usr/local/go/bin
           make apko install
         shell: alpine.sh {0}
 
       - name: Build apko example
         id: build-example
         run: |
+          export PATH=$PATH:/usr/local/go/bin
           apko build examples/alpine-base.yaml alpine:local alpine.tar
         shell: alpine.sh {0}
 
