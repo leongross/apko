@@ -19,19 +19,13 @@ jobs:
             git
             bash
             wget
-            go
 
-      - name: Install alpine build utils
-        id: install-deps
+      - name: Install pinned go version
+        id: get-go
         run: |
-          go version
-        shell: alpine.sh {0}
-
-      # - name: Install alpine build utils
-      #   id: install-deps
-      #   run: |
-      #     apk add --update alpine-sdk make git bash wget go
-      #   shell: alpine.sh --root {0}
+           apk update
+           apk add go=1.19.4-r0
+        shell: alpine.sh --root {0}
 
       # - name: Setup go
       #   id: setup-go
